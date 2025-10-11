@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import Navbar from './components/Navbar.jsx';
-import Home from './pages/Home.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import Analysis from './pages/Analysis.jsx';
-import About from './pages/About.jsx';
+import ProjectAPP from './pages/ProjectAAP.jsx';
 
 // Scroll to Top Button Component
 function ScrollTop() {
@@ -76,10 +74,9 @@ function App() {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/" element={<Dashboard />} />
+            {/* <Route path="/gis" element={<GIS/>} /> */}
+            <Route path="/ProjectnAAP" element={<ProjectAPP/>} />
           </Routes>
         </main>
         
