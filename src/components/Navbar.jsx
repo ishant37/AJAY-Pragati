@@ -73,6 +73,8 @@ const Navbar = ({ onDrawerWidthChange }) => {
     { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/implementation", label: "Implementation", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/verification", label: "Document verfication", icon: <PlaylistAdd />, color: "#c084fc" },
+    // { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" }, // ADD THIS LINE
+    // ... other items
   ];
 
   const isActive = (path) => location.pathname === path;

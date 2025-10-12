@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import CadastrialMap from "./pages/CadastrialMap.jsx";
 import VerificationPage from './pages/Verification.jsx'; 
 import ProjectAAP from './pages/ProjectAAP.jsx';
+import Reports from './pages/Reports.jsx'; // <-- IMPORT THE NEW PAGE
 import SkillDevelopment from './pages/Skilldevelopment.jsx';
 // --- END CORRECTED IMPORTS ---
 
@@ -99,6 +100,7 @@ function App() {
               <Route path="/monitor" element={<CadastrialMap/>} />
               <Route path="/skilldevelopment" element={<SkillDevelopment />} />
               <Route path="/ProjectnAAP" element={<ProjectAAP/>} />
+              <Route path="/reports" element={<Reports />} /> {/* <-- ADD THIS ROUTE */}
               <Route path="/verification" element={<VerificationPage/>} />
             </Routes>
           </main>
