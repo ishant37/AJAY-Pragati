@@ -86,7 +86,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/monitor" element={<CadastrialMap/>} />
-              <Route path="/skilldevelopment" element={<SkillDevelopment />} 
+              <Route path="/skilldevelopment" element={<SkillDevelopment />} />
               <Route path="/ProjectnAAP" element={<ProjectAAP/>} />
               <Route path="/verification" element={<VerificationPage/>} />
             </Routes>
