@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Analysis from './pages/Analysis.jsx';
 import About from './pages/About.jsx';
+import Map from './pages/Map.jsx';
 
 // Scroll to Top Button Component
 function ScrollTop() {
@@ -80,6 +81,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/analysis" element={<Analysis />} />
             <Route path="/about" element={<About />} />
+            <Route path="/map" element={<Map />} />
           </Routes>
         </main>
         

@@ -159,7 +159,7 @@
    DESIGN_REFERENCE.md      → Design system guide
    PROJECT_STRUCTURE.md     → File structure overview
 
-
+|_______|
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                         ✅ QUALITY ASSURANCE                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
