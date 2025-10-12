@@ -5,8 +5,8 @@ import Navbar from './components/Navbar.jsx';
 
 // --- CORRECTED IMPORTS ---
 import Dashboard from './pages/Dashboard.jsx';
-import CadastrialMap from "./pages/CadastrialMap.jsx"; // Assuming fixed name
-import  VerificationPage  from './pages/Verification.jsx'; 
+import CadastrialMap from "./pages/CadastrialMap.jsx";
+import VerificationPage from './pages/Verification.jsx'; 
 import ProjectAAP from './pages/ProjectAAP.jsx';
 import SkillDevelopment from './pages/Skilldevelopment.jsx';
 // --- END CORRECTED IMPORTS ---
@@ -14,7 +14,7 @@ import SkillDevelopment from './pages/Skilldevelopment.jsx';
 // Scroll to Top Button Component
 function ScrollTop() {
   const [isVisible, setIsVisible] = useState(false);
-  // ... (ScrollTop logic remains the same) ...
+  
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 100) {
@@ -26,12 +26,14 @@ function ScrollTop() {
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
+  
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
   };
+  
   return (
     <>
       {isVisible && (
@@ -49,6 +51,8 @@ function ScrollTop() {
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  // 👈 1. STATE TO TRACK DRAWER WIDTH
+  const [drawerWidth, setDrawerWidth] = useState(70); // Matches MIN_DRAWER_WIDTH
 
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true';
@@ -70,17 +74,24 @@ function App() {
   };
 
   return (
-    // CHANGE 1: Remove 'flex-col' from outer container. The sidebar (Navbar) 
-    // is responsible for positioning itself. The main content will handle its offset.
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Router>
-        {/* Navbar (Sidebar) is rendered outside the content flow */}
-        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        {/* 2. Pass the state setter function to the Navbar */}
+        <Navbar 
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode} 
+          onDrawerWidthChange={setDrawerWidth} 
+        />
         
-        {/* CHANGE 2: Wrap all main content (main + footer) in a div to push it clear.
-           This is necessary because the Navbar is likely using a fixed/permanent position 
-           and is taken out of the normal document flow. */}
-        <div className="content-wrapper min-h-screen flex flex-col">
+        {/* 3. Apply the dynamic offset to the content wrapper */}
+        <div 
+          className="content-wrapper min-h-screen flex flex-col"
+          style={{
+            marginLeft: drawerWidth, // Pushes content to the right
+            width: `calc(100% - ${drawerWidth}px)`, // Ensures content does not overflow
+            transition: 'margin-left 0.3s ease-in-out, width 0.3s ease-in-out', // Smooth transition
+          }}
+        >
           {/* Main Content Area - Routes are contained here */}
           <main className="flex-grow">
             <Routes>
