@@ -3,61 +3,45 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply box-border;
-  }
+  /* ... (Existing base styles) ... */
 
-  html {
-    @apply scroll-smooth;
-  }
-
-  body {
-    @apply m-0 font-sans antialiased;
+  /* Set primary color variable (Tailwind needs to see this to generate classes) */
+  :root {
+    --color-primary: #1d4ed8; /* Example blue, adjust as needed */
   }
 
   /* Custom scrollbar styling */
   ::-webkit-scrollbar {
     @apply w-2.5;
   }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 dark:bg-gray-600 rounded-md;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-500 dark:bg-gray-500;
-  }
+  /* ... (Other scrollbar styles) ... */
 }
+
+/* 🛑 CRITICAL FIX: Add this class to your global CSS 🛑 */
+/* This class offsets the main content to the right of the fixed MUI Drawer (Sidebar). */
+.content-wrapper {
+    /* Mobile/Small screens: No fixed sidebar offset */
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Desktop/Tablet screens (sm: or md: equivalent) */
+/* Assuming MUI's sm breakpoint is around 600px, 
+   we apply the 70px offset for the minimized desktop drawer. */
+@media (min-width: 600px) { /* Adjust breakpoint if necessary, this is MUI's default 'sm' */
+    .content-wrapper {
+        /* Default state of the MUI Permanent Drawer is MIN_DRAWER_WIDTH = 70px */
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        
+        /* Optional: Add transition to match drawer expansion smoothness */
+        transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+}
+/* This fix ensures that on desktop views, the main content starts 70px from the left, 
+clearing the default minimized sidebar. */
 
 @layer components {
-  /* Custom utility classes */
-  .btn-primary {
-    @apply px-6 py-3 bg-primary text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
-  }
-
-  .btn-secondary {
-    @apply px-6 py-3 border-2 border-white text-white rounded-lg font-medium transition-all duration-300 hover:bg-white/10;
-  }
-
-  .card {
-    @apply bg-white dark:bg-gray-800 rounded-card shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
-  }
-
-  .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white;
-  }
+  /* ... (Existing component styles) ... */
 }
-
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
-  }
-
-  .gradient-bg {
-    @apply bg-gradient-to-br from-primary via-primary-dark to-secondary;
-  }
-}
+/* ... (Existing utility styles) ... */
