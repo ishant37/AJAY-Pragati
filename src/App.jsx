@@ -6,6 +6,7 @@ import Navbar from './components/Navbar.jsx';
 // --- CORRECTED IMPORTS ---
 import Dashboard from './pages/Dashboard.jsx';
 import CadastrialMap from "./pages/CadastrialMap.jsx"; // Assuming fixed name
+import  VerificationPage  from './pages/Verification.jsx'; 
 import ProjectAAP from './pages/ProjectAAP.jsx';
 // --- END CORRECTED IMPORTS ---
 
@@ -85,6 +86,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/monitor" element={<CadastrialMap/>} />
               <Route path="/ProjectnAAP" element={<ProjectAAP/>} />
+              <Route path="/verification" element={<VerificationPage/>} />
             </Routes>
           </main>
           

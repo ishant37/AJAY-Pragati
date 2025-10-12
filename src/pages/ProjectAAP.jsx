@@ -127,16 +127,16 @@ const formatCurrency = (amount) => `₹ ${amount.toLocaleString('en-IN')}`;
 // Component to render the history log
 const AuditHistory = ({ history }) => (
     <div className="mt-4 p-3 bg-gray-100 rounded-lg border border-gray-300">
-        <h4 className="text-sm font-bold text-gray-700 flex items-center space-x-1 mb-2">
-            <History size={14} /> <span>Project History Log</span>
-        </h4>
-        <ul className="space-y-1">
-            {history.slice().reverse().map((item, index) => ( // Reverse to show latest first
-                <li key={index} className="text-xs text-gray-600 border-l-2 border-indigo-400 pl-2">
-                    <span className="font-semibold">{item.timestamp.split(',')[0]}:</span> {item.action} {item.remarks && item.remarks !== 'N/A' && `(Remarks: ${item.remarks})`}
-                </li>
-            ))}
-        </ul>
+      <h4 className="text-sm font-bold text-gray-700 flex items-center space-x-1 mb-2">
+        <History size={14} /> <span>Project History Log</span>
+      </h4>
+      <ul className="space-y-1">
+        {history.slice().reverse().map((item, index) => ( // Reverse to show latest first
+          <li key={index} className="text-xs text-gray-600 border-l-2 border-indigo-400 pl-2">
+            <span className="font-semibold">{item.timestamp.split(',')[0]}:</span> {item.action} {item.remarks && item.remarks !== 'N/A' && `(Remarks: ${item.remarks})`}
+          </li>
+        ))}
+      </ul>
     </div>
 );
 
@@ -204,7 +204,8 @@ const ProjectCreationForm = ({ currentRole, projects, setProjects, setCurrentVie
   }
 
   return (
-    <div className="p-6 bg-white shadow-xl rounded-xl">
+    // 💡 HIGHLIGHT CHANGE: Changed bg-white to bg-indigo-50 and added stronger shadow
+    <div className="p-6 bg-indigo-50 shadow-2xl rounded-xl border-t-4 border-indigo-600">
       <h2 className="text-3xl font-extrabold text-gray-900 mb-6 flex items-center space-x-3">
         <Briefcase className="text-indigo-600" />
         <span>New Project Proposal (GIA/Hostel)</span>
@@ -218,7 +219,7 @@ const ProjectCreationForm = ({ currentRole, projects, setProjects, setCurrentVie
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <p className="text-gray-500 text-sm">
-            As a **{currentRole.name}**, this proposal will be sent directly to the **{currentRole.id === 'DM' ? ROLES.DA.name : ROLES.SA.name}** for review.
+          As a **{currentRole.name}**, this proposal will be sent directly to the **{currentRole.id === 'DM' ? ROLES.DA.name : ROLES.SA.name}** for review.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -426,18 +427,18 @@ const ApprovalQueue = ({ currentRole, projects, setProjects, annualPlans, setAnn
   // Projects in queue for DA and SA (Individual Project Approval)
   const projectsInQueue = useMemo(() => {
     return projects.filter(p => 
-        p.status === approvalRequiredStatus || 
-        (currentRole.id === p.created_by && p.status === 'Returned')
+      p.status === approvalRequiredStatus || 
+      (currentRole.id === p.created_by && p.status === 'Returned')
     );
   }, [projects, approvalRequiredStatus, currentRole.id]);
   
   // AAPs in queue for CU (Consolidated Plan Approval)
   const plansInQueue = useMemo(() => {
       if (currentRole.id === 'CU') {
-          return annualPlans.filter(p => p.status === approvalRequiredStatus);
+          return annualPlans.filter(p => p.status === 'Pending Central Sanction');
       }
       return [];
-  }, [annualPlans, approvalRequiredStatus, currentRole.id]);
+  }, [annualPlans, currentRole.id]);
 
 
   const handleAction = useCallback((projectId, action, remarks = '') => {
@@ -740,7 +741,7 @@ const MISDashboard = ({ projects, setProjects, currentRole, annualPlans }) => {
     setProjects(prevProjects =>
       prevProjects.map(p => {
         if (p.id === projectId && p.UC_status === 'UC Final Submitted') {
-            const lastRemarks = p.audit_history.slice(-1)[0]?.remarks;
+            const lastRemarks = p.audit_history.findLast(h => h.action.includes('UC Final Submitted'))?.remarks; // Using findLast, or slice(-1) if not available
             const newHistory = { timestamp: new Date().toLocaleString(), action: 'Audit Approved, Project Closed by CU/PACC.', remarks: `Closed after verifying UC/Audit Remarks: ${lastRemarks}` };
             return { ...p, status: 'Closed', UC_status: 'Audit Approved', audit_history: [...p.audit_history, newHistory] };
         }
@@ -931,7 +932,7 @@ const MISDashboard = ({ projects, setProjects, currentRole, annualPlans }) => {
                             <td className="px-6 py-4">
                                 <p className="text-sm font-semibold text-gray-900">{project.title}</p>
                                 <p className="text-xs text-gray-500 mt-1 italic">
-                                    Last Remarks: {project.audit_history.find(h => h.action.includes('UC Final Submitted'))?.remarks || 'N/A'}
+                                    Last Remarks: {project.audit_history.findLast(h => h.action.includes('UC Final Submitted'))?.remarks || 'N/A'}
                                 </p>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-teal-600 font-semibold">
@@ -987,7 +988,10 @@ const App = () => {
   const [currentRole, setCurrentRole] = useState(ROLES.DM); 
   const [projects, setProjects] = useState(initialProjects);
   const [annualPlans, setAnnualPlans] = useState(initialPlans); 
-  const [currentView, setCurrentView] = useState('dashboard');
+  
+  // 💡 HIGHLIGHT CHANGE: Set initial view based on role
+  const initialView = ['DM', 'SM'].includes(ROLES.DM.id) ? 'create' : 'dashboard';
+  const [currentView, setCurrentView] = useState(initialView);
 
   const currentRoleObj = ROLES[currentRole.id];
   const isMaker = currentRoleObj.id === 'DM' || currentRoleObj.id === 'SM';
@@ -1006,6 +1010,19 @@ const App = () => {
         return <MISDashboard projects={projects} setProjects={setProjects} currentRole={currentRoleObj} annualPlans={annualPlans} />;
     }
   };
+  
+  // 💡 HIGHLIGHT CHANGE: Function to determine the new view when switching roles
+  const handleRoleChange = (roleId) => {
+    const newRole = ROLES[roleId];
+    setCurrentRole(newRole);
+    // Set view to 'create' if the new role is a Maker, otherwise 'dashboard'
+    if (newRole.id === 'DM' || newRole.id === 'SM') {
+      setCurrentView('create');
+    } else {
+      setCurrentView('dashboard');
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans p-4 sm:p-8">
@@ -1018,7 +1035,7 @@ const App = () => {
             <label className="text-sm font-medium text-gray-700">Switch User Role:</label>
             <select
               value={currentRole.id}
-              onChange={(e) => {setCurrentRole(ROLES[e.target.value]); setCurrentView('dashboard');}}
+              onChange={(e) => handleRoleChange(e.target.value)}
               className={`p-2 rounded-xl border-2 border-gray-300 shadow-lg font-bold transition focus:ring-indigo-500 focus:border-indigo-500 ${currentRoleObj.color} text-white`}
             >
               {Object.values(ROLES).map(role => (
@@ -1057,10 +1074,11 @@ const App = () => {
           {isMaker && (
             <button
               onClick={() => setCurrentView('create')}
+              // 💡 HIGHLIGHT CHANGE: Added border and stronger shadow for the New Project button
               className={`py-2 px-3 sm:px-6 rounded-xl font-bold transition ${
                 currentView === 'create'
-                  ? 'bg-indigo-600 text-white shadow-lg'
-                  : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-700'
+                  ? 'bg-indigo-600 text-white shadow-lg border-2 border-yellow-300' // Current view
+                  : 'text-white bg-indigo-500 hover:bg-indigo-600 shadow-xl border-2 border-yellow-300 animate-pulse' // Highlight for Maker
               } flex items-center space-x-1`}
             >
               <Briefcase size={18} />
