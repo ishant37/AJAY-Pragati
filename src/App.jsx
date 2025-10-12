@@ -7,6 +7,7 @@ import Navbar from './components/Navbar.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import CadastrialMap from "./pages/CadastrialMap.jsx"; // Assuming fixed name
 import ProjectAAP from './pages/ProjectAAP.jsx';
+import SkillDevelopment from './pages/Skilldevelopment.jsx';
 // --- END CORRECTED IMPORTS ---
 
 // Scroll to Top Button Component
@@ -84,7 +85,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/monitor" element={<CadastrialMap/>} />
-              <Route path="/ProjectnAAP" element={<ProjectAAP/>} />
+              <Route path="/projectnaap" element={<ProjectAAP/>} />
+              <Route path="/skilldevelopment" element={<SkillDevelopment />} />
             </Routes>
           </main>
           

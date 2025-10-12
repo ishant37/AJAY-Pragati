@@ -317,10 +317,11 @@ const Navbar = () => {
     // Using Map for Monitor, since CadastrialMap component was causing issues
     { path: "/monitor", label: "Monitor", icon: <Map />, color: "#60a5fa" }, 
     { path: "/projectnaap", label: "Projects & AAP", icon: <DocumentScanner />, color: "#f472b6" },
+    { path: "/skilldevelopment", label: "Skill Development", icon: <Psychology />, color: "#8b5cf6" },
     { path: "/sanctions", label: "Sanctions & Fund Release", icon: <Psychology />, color: "#fbbf24" },
     { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/implementation", label: "Implementation", icon: <PlaylistAdd />, color: "#c084fc" },
-    { path: "/verification", label: "Document verfication", icon: <PlaylistAdd />, color: "#c084fc" },
+    { path: "/verification", label: "Document verification", icon: <PlaylistAdd />, color: "#c084fc" },
   ];
 
   const isActive = (path) => location.pathname === path;
