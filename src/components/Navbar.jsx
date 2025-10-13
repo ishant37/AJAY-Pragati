@@ -27,7 +27,7 @@ import {
   // Removed Forest icon
   PlaylistAdd,
 } from "@mui/icons-material";
-import Tracking from '/projects/AshishRepo/AJAY-Pragati/src/pages/Tracking'; // Custom icon for Implementation
+import Tracking from '../pages/Tracking'; // Custom icon for Implementation
 // Original max width for the expanded state
 const MAX_DRAWER_WIDTH = 280;
 // New min width for the collapsed state
@@ -67,10 +67,10 @@ const Navbar = ({ onDrawerWidthChange }) => {
   const navItems = [
     { path: "/", label: "Dashboard", icon: <Dashboard />, color: "#34d399" },
     // Using Map for Monitor, since CadastrialMap component was causing issues
-    { path: "/monitor", label: "Visualize", icon: <Map />, color: "#60a5fa" }, n
+    { path: "/monitor", label: "Visualize", icon: <Map />, color: "#60a5fa" }, 
     { path: "/projectnaap", label: "Projects & AAP", icon: <DocumentScanner />, color: "#f472b6" },
     { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" },
-    { path: "/tracking", label: "impact & Tracking", icon: <PlaylistAdd />, color: "#c084fc" },
+    { path: "/tracking", label: "impact & Tracking", icon: <Tracking />, color: "#c084fc" },
     { path: "/verification", label: "Document verfication", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/skilldevelopment", label: "Skill Development", icon: <Psychology/>, color: "#60a5fa" }, 
     // { path: "/sanctions", label: "Sanctions & Fund Release", icon: <Psychology />, color: "#fbbf24" },
