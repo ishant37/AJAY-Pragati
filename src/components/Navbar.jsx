@@ -70,7 +70,7 @@ const Navbar = ({ onDrawerWidthChange }) => {
     { path: "/monitor", label: "Visualize", icon: <Map />, color: "#60a5fa" }, 
     { path: "/projectnaap", label: "Projects & AAP", icon: <DocumentScanner />, color: "#f472b6" },
     { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" },
-    { path: "/tracking", label: "impact & Tracking", icon: <Tracking />, color: "#c084fc" },
+    { path: "/tracking", label: "impact & Tracking", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/verification", label: "Document verfication", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/skilldevelopment", label: "Skill Development", icon: <Psychology/>, color: "#60a5fa" }, 
     // { path: "/sanctions", label: "Sanctions & Fund Release", icon: <Psychology />, color: "#fbbf24" },
