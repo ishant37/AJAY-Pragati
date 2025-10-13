@@ -24,7 +24,7 @@ import {
   Logout,
   Menu,
   Notifications,
-  Forest,
+  // Removed Forest icon
   PlaylistAdd,
 } from "@mui/icons-material";
 import Tracking from '/projects/AshishRepo/AJAY-Pragati/src/pages/Tracking'; // Custom icon for Implementation
@@ -37,7 +37,7 @@ const MIN_DRAWER_WIDTH = 70;
 const Navbar = ({ onDrawerWidthChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   // Initialize drawerWidth to MIN_DRAWER_WIDTH for desktop view
-  const [drawerWidth, setDrawerWidth] = useState(MIN_DRAWER_WIDTH); 
+  const [drawerWidth, setDrawerWidth] = useState(MIN_DRAWER_WIDTH);
   const location = useLocation();
 
   const isMinimized = drawerWidth === MIN_DRAWER_WIDTH;
@@ -61,13 +61,13 @@ const Navbar = ({ onDrawerWidthChange }) => {
     localStorage.removeItem('loginTimestamp');
     localStorage.removeItem('loggedInUser');
     // In a real app, this would redirect to the login page: navigate('/login');
-    window.location.reload(); 
+    window.location.reload();
   };
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: <Dashboard />, color: "#34d399" },
     // Using Map for Monitor, since CadastrialMap component was causing issues
-    { path: "/monitor", label: "Visualize", icon: <Map />, color: "#60a5fa" }, 
+    { path: "/monitor", label: "Visualize", icon: <Map />, color: "#60a5fa" }, n
     { path: "/projectnaap", label: "Projects & AAP", icon: <DocumentScanner />, color: "#f472b6" },
     { path: "/reports", label: "Reports", icon: <PlaylistAdd />, color: "#c084fc" },
     { path: "/tracking", label: "impact & Tracking", icon: <PlaylistAdd />, color: "#c084fc" },
@@ -88,7 +88,7 @@ const Navbar = ({ onDrawerWidthChange }) => {
     setDrawerWidth(MAX_DRAWER_WIDTH);
     // Notify parent component
     if (onDrawerWidthChange) {
-        onDrawerWidthChange(MAX_DRAWER_WIDTH);
+      onDrawerWidthChange(MAX_DRAWER_WIDTH);
     }
   };
 
@@ -96,13 +96,13 @@ const Navbar = ({ onDrawerWidthChange }) => {
     setDrawerWidth(MIN_DRAWER_WIDTH);
     // Notify parent component
     if (onDrawerWidthChange) {
-        onDrawerWidthChange(MIN_DRAWER_WIDTH);
+      onDrawerWidthChange(MIN_DRAWER_WIDTH);
     }
   };
 
   /**
-    * Helper component to apply smooth visibility transition to text
-    */
+   * Helper component to apply smooth visibility transition to text
+   */
   const SmoothText = ({ children }) => (
     <Box
       sx={{
@@ -113,9 +113,9 @@ const Navbar = ({ onDrawerWidthChange }) => {
         whiteSpace: 'nowrap',
         // Transition settings for smooth animation
         transition: 'opacity 0.2s ease-in-out, width 0.3s ease-in-out 0.1s',
-        display: 'flex', 
+        display: 'flex',
         alignItems: 'center',
-        ml: isMinimized ? 0 : 1, 
+        ml: isMinimized ? 0 : 1,
       }}
     >
       {children}
@@ -143,16 +143,26 @@ const Navbar = ({ onDrawerWidthChange }) => {
           alignItems: "center",
           justifyContent: isMinimized ? 'center' : 'flex-start',
           gap: 2,
-          textDecoration: 'none', 
-          color: 'inherit', 
-          cursor: 'pointer', 
+          textDecoration: 'none',
+          color: 'inherit',
+          cursor: 'pointer',
           "&:hover": {
             backgroundColor: "rgba(255, 255, 255, 0.05)",
           },
           transition: "background-color 0.2s ease-in-out",
         }}
       >
-        <Forest sx={{ fontSize: 40, color: "#34d399" }} />
+        {/* Emblem of India Logo */}
+        <Box
+          component="img"
+          src="https://i.postimg.cc/CL1XPqvt/8feee10e55674a052a6891f7a1759b06-removebg-preview.png" // Placeholder URL for Emblem of India
+          alt="Emblem of India"
+          sx={{
+            width: 40,
+            height: 40,
+            filter: "drop-shadow(0 0 5px rgba(52, 211, 153, 0.6))", // Apply shadow as before
+          }}
+        />
         {/* Pass the complex text content to SmoothText */}
         <SmoothText>
           <Box>
@@ -201,15 +211,15 @@ const Navbar = ({ onDrawerWidthChange }) => {
                   },
                   transition: "all 0.2s ease-in-out",
                   // Remove padding when minimized to allow icon to center correctly
-                  px: isMinimized ? 0 : 2, 
-                  ml: isMinimized ? 1 : 0, 
+                  px: isMinimized ? 0 : 2,
+                  ml: isMinimized ? 1 : 0,
                 }}
               >
                 <ListItemIcon
                   sx={{
                     color: active ? item.color : "#94a3b8",
                     // Use a fixed small minWidth for icons to center when minimized
-                    minWidth: isMinimized ? '100%' : 32, 
+                    minWidth: isMinimized ? '100%' : 32,
                     justifyContent: 'center',
                     filter: active ? `drop-shadow(0 0 5px ${item.color}60)` : "none",
                   }}
@@ -229,7 +239,7 @@ const Navbar = ({ onDrawerWidthChange }) => {
                       color: active ? "#fff" : "#e2e8f0",
                       fontWeight: active ? 600 : 500,
                       fontSize: "15px",
-                      whiteSpace: 'nowrap', 
+                      whiteSpace: 'nowrap',
                     },
                   }}
                 />
@@ -258,31 +268,31 @@ const Navbar = ({ onDrawerWidthChange }) => {
                   justifyContent: isMinimized ? 'center' : 'flex-start',
                   width: '100%',
                   py: 1.2,
-                  px: isMinimized ? 0 : 2, 
-                  ml: isMinimized ? 1 : 0, 
+                  px: isMinimized ? 0 : 2,
+                  ml: isMinimized ? 1 : 0,
                   "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.05)" }
                 }}
               >
-                <ListItemIcon 
-                    sx={{ color: "#94a3b8", minWidth: isMinimized ? '100%' : 32, justifyContent: 'center' }}
+                <ListItemIcon
+                  sx={{ color: "#94a3b8", minWidth: isMinimized ? '100%' : 32, justifyContent: 'center' }}
                 >
-                    {item.icon}
+                  {item.icon}
                 </ListItemIcon>
 
                 {/* Use ListItemText for action items with smooth hide/show */}
                 <ListItemText
-                    primary={item.label}
-                    sx={{
-                        opacity: isMinimized ? 0 : 1,
-                        width: isMinimized ? 0 : 'auto',
-                        overflow: 'hidden',
-                        transition: 'opacity 0.2s ease-in-out, width 0.3s ease-in-out 0.1s',
-                        "& .MuiListItemText-primary": {
-                            whiteSpace: 'nowrap',
-                            fontSize: "15px",
-                            color: "#e2e8f0"
-                        }
-                    }}
+                  primary={item.label}
+                  sx={{
+                    opacity: isMinimized ? 0 : 1,
+                    width: isMinimized ? 0 : 'auto',
+                    overflow: 'hidden',
+                    transition: 'opacity 0.2s ease-in-out, width 0.3s ease-in-out 0.1s',
+                    "& .MuiListItemText-primary": {
+                      whiteSpace: 'nowrap',
+                      fontSize: "15px",
+                      color: "#e2e8f0"
+                    }
+                  }}
                 />
               </ListItemButton>
             </ListItem>
