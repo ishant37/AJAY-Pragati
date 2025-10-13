@@ -10,6 +10,7 @@ import VerificationPage from './pages/Verification.jsx';
 import ProjectAAP from './pages/ProjectAAP.jsx';
 import Reports from './pages/Reports.jsx'; // <-- IMPORT THE NEW PAGE
 import SkillDevelopment from './pages/Skilldevelopment.jsx';
+import Tracking from './pages/Tracking.jsx';
 // --- END CORRECTED IMPORTS ---
 
 // Scroll to Top Button Component
@@ -102,6 +103,7 @@ function App() {
               <Route path="/ProjectnAAP" element={<ProjectAAP/>} />
               <Route path="/reports" element={<Reports />} /> {/* <-- ADD THIS ROUTE */}
               <Route path="/verification" element={<VerificationPage/>} />
+              <Route path="/tracking" element={<Tracking/>} />
             </Routes>
           </main>
           
