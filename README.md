@@ -1,7 +1,3 @@
-Here is an updated, professional `README.md` file based on the repository and presentation context you provided.
-
------
-
 # PM-AJAY GIA Portal
 
 **Status:** Deployed Prototype
